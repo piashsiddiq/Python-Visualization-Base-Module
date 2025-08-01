@@ -1,5 +1,4 @@
 # Python-Visualization-Base-Module
-# Python-Visualization-Base-Module
 
 ## 1: LINE CHART / PLOT
 #plt.plot(x, y, color='color name', linestyle='line_Style', linewidth=value, marker='marker symbol', label='label name')
