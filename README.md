@@ -190,3 +190,62 @@ fig.suptitle('Comparison of Movies and TV Shows Released Over Years')
 plt.tight_layout()
 plt.savefig('movies_tv_shows_comparison.png')
 plt.show()
+
+## Country Visualized on MAP
+# World map with Bangladesh highlighted (green), oceans blue, borders shown.
+# Shows an interactive map; optionally saves a PNG if kaleido is installed.
+
+import plotly.graph_objects as go
+
+# Only color Bangladesh; other countries use the global land color
+choropleth = go.Choropleth(
+    locations=["Bangladesh"],
+    z=[1],
+    locationmode="country names",
+    colorscale=[
+        [0.0, "rgb(46, 204, 113)"],  # green
+        [1.0, "rgb(46, 204, 113)"],
+    ],
+    showscale=False,
+    marker_line_color="rgb(85,85,85)",
+    marker_line_width=0.6,
+    hovertemplate="<b>%{location}</b><extra></extra>"
+)
+
+fig = go.Figure(data=[choropleth])
+
+fig.update_layout(
+    title_text="Bangladesh Highlighted (Green) on World Map",
+    geo=dict(
+        projection_type="natural earth",
+        showframe=False,
+        showcoastlines=True,
+        coastlinecolor="rgb(85,85,85)",
+        showcountries=True,
+        countrycolor="rgb(85,85,85)",
+        landcolor="rgb(221,221,221)",   # light gray world land
+        showocean=True,
+        oceancolor="rgb(207,232,255)",  # blue oceans
+    ),
+    margin=dict(l=0, r=0, t=50, b=0),
+    paper_bgcolor="white",
+)
+
+# Label for Bangladesh near its geographic center (approximate)
+fig.add_trace(
+    go.Scattergeo(
+        lon=[90.3563], lat=[23.6850],
+        text=["Bangladesh"],
+        mode="text",
+        textfont=dict(size=14, color="rgb(10,61,98)", family="Arial Black"),
+        hoverinfo="skip", showlegend=False
+    )
+)
+
+# Optional: save a PNG if kaleido is available
+try:
+    fig.write_image("bangladesh_world_map_plotly.png", scale=2)
+except Exception:
+    pass
+
+fig.show()
